@@ -24,8 +24,8 @@ class Familiar(models.Model):
     parentesco= models.CharField(max_length=45)
     correo = models.CharField(max_length=45)
 
-class Doctor(Persona):
-    registro = models.SmallIntegerField(unique=True)
+class Doctor(models.Model):
+    registro = models.SmallIntegerField(primary_key=True)
     especialidad = models.CharField(max_length=45)
-    idDoctor = models.ForeignKey(Persona,null=True, related_name="Doctor", on_delete=models.CASCADE)
+    idDoctor = models.ForeignKey(Persona, related_name="Doctor", on_delete=models.CASCADE)
 
