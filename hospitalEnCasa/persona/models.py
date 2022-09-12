@@ -12,7 +12,7 @@ class Persona(models.Model):
 class Paciente(Persona):
     direccion = models.CharField(max_length=50)
     ciudad = models.CharField(max_length=50)
-    fechaNacimiento= models.DateField(("Date"), default= datetime.date.today)
+    fechaNacimiento= models.DateField(default = datetime.date)
 
 class Familiar(Paciente):
     parentesco= models.CharField(max_length=45)
