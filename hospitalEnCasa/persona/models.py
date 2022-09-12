@@ -1,5 +1,5 @@
 from django.db import models
-import datetime
+
 
 
 # Create your models here.
@@ -19,6 +19,6 @@ class Familiar(Paciente):
     correo = models.CharField(max_length=45)
 
 class Doctor(Persona):
-    registro = models.SmallIntegerField(unique=True)
+    registro = models.SmallIntegerField(default=0)
     especialidad = models.CharField(max_length=45)
 
