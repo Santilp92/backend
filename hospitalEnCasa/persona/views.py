@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseBadRequest, HttpResponseNotAllowed
 import json
 
-from .models import Doctor, Paciente, Persona, Familiar
+from .models import Doctor, Paciente, Persona
 
 
 # Create your views here.
@@ -26,8 +26,8 @@ def nuevoPaciente(request):
                 ciudad = data["ciudad"],
                 fechaNacimiento = data["fechaNacimiento"]
                 )
-            paciente.save()
             persona.save()
+            paciente.save()
             return HttpResponse("Nuevo paciente agregadoo")
         except:
             return HttpResponseBadRequest("Error en los datos enviados")
@@ -49,8 +49,8 @@ def nuevoDoctor(request):
                 registro = data["registro"],
                 especialidad = data["especialidad"],
                 )
-            doctor.save()
             persona.save()
+            doctor.save()
             return HttpResponse("Nuevo doctor agregadoo")
         except:
             return HttpResponseBadRequest("Error en los datos enviados de doctor")
