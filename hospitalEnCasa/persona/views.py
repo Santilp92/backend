@@ -7,7 +7,7 @@ from .models import Doctor, Paciente, Persona, Familiar
 
 # Create your views here.
 
-def consultarPaciente(request):
+def buscarPaciente(request):
     return HttpResponse("Consultar paciente")
 
 def nuevoPaciente(request):
@@ -45,6 +45,7 @@ def nuevoDoctor(request):
                 celular = data["celular"],
                 )
             doctor = Doctor(
+                persona_ptr_id = data["id"],
                 registro = data["registro"],
                 especialidad = data["especialidad"],
                 )
@@ -52,22 +53,27 @@ def nuevoDoctor(request):
             persona.save()
             return HttpResponse("Nuevo doctor agregadoo")
         except:
-            return HttpResponseBadRequest("Error en los datos enviados")
+            return HttpResponseBadRequest("Error en los datos enviados de doctor")
     else:
         return HttpResponseNotAllowed(['POST'], "Método inválido")
 
-# def getMember(request):
-#     if request.method == 'GET':
-#         members = Members.objects.all()
-#         allMemberData = []
-#         for x in members:
-#             data = {"id": x.id, "name": x.name, "email":x.email}
-#             allMemberData.append(data)
-#         dataJson = json.dumps(allMemberData)
-#         #print(dataJson)
-#         resp = HttpResponse()
-#         resp.headers['Content-Type'] = "text/json"
-#         resp.content = dataJson
-#         return resp
-#     else:
-#         return HttpResponseNotAllowed(['GET'], "Método inválido")
+def consultarPacientes(request):
+    if request.method == 'GET':
+        pacientes = Paciente.objects.all()
+        print (type(pacientes))
+        personas = Persona.objects.all()
+        pacientesData = []
+        for x in pacientes:
+            fechaStr =x.fechaNacimiento.strftime("%Y-%m-%d",)
+            data = {"direccion": x.direccion, "ciudad":x.ciudad,
+            "fechaNacimiento":fechaStr}
+            print(data)
+            pacientesData.append(data)
+        dataJson = json.dumps(pacientesData)
+        #print(dataJson)
+        resp = HttpResponse()
+        resp.headers['Content-Type'] = "text/json"
+        resp.content = dataJson
+        return resp
+    else:
+        return HttpResponseNotAllowed(['GET'], "Método inválido")

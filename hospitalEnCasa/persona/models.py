@@ -19,6 +19,6 @@ class Familiar(Paciente):
     correo = models.CharField(max_length=45)
 
 class Doctor(Persona):
-    registro = models.SmallIntegerField(default=0)
+    registro = models.SmallIntegerField(unique=True)
     especialidad = models.CharField(max_length=45)
 
