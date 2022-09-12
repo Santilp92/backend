@@ -12,13 +12,13 @@ class Persona(models.Model):
 class Paciente(Persona):
     direccion = models.CharField(max_length=50)
     ciudad = models.CharField(max_length=50)
-    fechaNacimiento= models.DateField(default = datetime.date)
+    fechaNacimiento= models.DateField()
 
 class Familiar(Paciente):
     parentesco= models.CharField(max_length=45)
     correo = models.CharField(max_length=45)
 
 class Doctor(Persona):
-    registro = models.AutoField(primary_key=True)
+    registro = models.SmallIntegerField(unique=True)
     especialidad = models.CharField(max_length=45)
 
