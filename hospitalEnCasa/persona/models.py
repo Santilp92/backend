@@ -1,8 +1,6 @@
 from turtle import mode
 from django.db import models
 
-
-
 # Create your models here.
 class Persona(models.Model):
     id = models.BigIntegerField(primary_key=True)
