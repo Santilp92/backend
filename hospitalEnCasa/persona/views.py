@@ -99,11 +99,12 @@ def buscarPersonaPaciente(request, id):
         if (not persona):
             return HttpResponseBadRequest("No existe paciente con esta cédula")
         
-        paciente = Paciente.objects.filter(idPaciente = id).first()
+        paciente = Paciente.objects.filter(idPaciente = id)
         pacienteData = []
         for dato in paciente:
+            fechaStr = dato.fechaNacimiento.strftime('%Y-%m-%d',)
             data = {"direccion":dato.direccion,"ciudad":dato.ciudad,
-            "fechaNacimiento":dato.fechaNacimiento}
+            "fechaNacimiento":fechaStr}
             pacienteData.append(data)
         data = {
             "id":persona.id, 
