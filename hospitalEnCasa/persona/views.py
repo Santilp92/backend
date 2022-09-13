@@ -19,11 +19,11 @@ def nuevaPersonaPaciente(request):
                 celular = data["celular"]
                 )
             persona.save()
-            persona = Persona.objects.filter(id= data["id"]).first()
-            if (not persona):
+            persona1 = Persona.objects.filter(id= data["id"]).first()
+            if (not persona1):
                 return HttpResponseBadRequest("No existe la persona con esa cédula")
             paciente = Paciente(
-                idPaciente = persona,
+                idPaciente = persona1,
                 direccion = data["direccion"],
                 ciudad = data["ciudad"],
                 fechaNacimiento = data["fechaNacimiento"]
@@ -59,14 +59,20 @@ def actualizarPersonaPaciente(request, id):
         return HttpResponseNotAllowed(['PUT'], "Método inválido")
 
 def consultarPersonasPacientes(request):
-    if request.method == 'GET':
-        personas = Persona.objects.all()
-        if (not personas):
-            return HttpResponseBadRequest("No existen personas en la bd")
+    if request.method == 'GET':   
+        pacientes = Paciente.objects.all().values()
+        if (not pacientes):
+            return HttpResponseBadRequest("No hay paceintes en la bd")
         personasData = []
-        for x in personas:
-            data = {"nombres": x.nombres, "apellidos":x.apellidos}
-            personasData.append(data)
+        for paciente in pacientes:
+            idPaciente = paciente["idPaciente_id"]
+            persona = Persona.objects.filter(id = idPaciente)
+            for dato in persona:
+                data = {"id":dato.id, "nombres": dato.nombres, 
+                "apellidos":dato.apellidos}
+                personasData.append(data)
+                print(personasData)
+         
         dataJson = json.dumps(personasData)
         resp = HttpResponse()
         resp.headers['Content-Type'] = "text/json"
