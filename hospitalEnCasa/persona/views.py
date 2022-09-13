@@ -71,7 +71,6 @@ def consultarPersonasPacientes(request):
                 data = {"id":dato.id, "nombres": dato.nombres, 
                 "apellidos":dato.apellidos}
                 personasData.append(data)
-                print(personasData)
          
         dataJson = json.dumps(personasData)
         resp = HttpResponse()
