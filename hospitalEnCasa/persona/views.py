@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseBadRequest, HttpResponseNotAllowed
 import json
-from .models import Persona,Paciente
+from .models import Persona, Paciente, Doctor, Familiar
 
 
 # Create your views here.
@@ -122,6 +122,64 @@ def buscarPersonaPaciente(request, id):
     else:
         return HttpResponseNotAllowed(['GET'], "Método inválido")
 
+def nuevoFamiliar(request):
+    if request.method == 'POST':
+        try:
+            data = json.loads(request.body)
+            PacienteAsi = data["idPaciente"]
+            persona = Persona(
+                id = data ["id"],
+                nombres = data["nombres"],
+                apellidos = data["apellidos"],
+                celular = data["celular"],
+                )
+            persona.save()
+
+            paciente = Paciente.objects.filter(idPaciente = PacienteAsi).first()
+            persona = Persona.objects.filter(id= data["id"]).first()
+            if (not persona):
+                return HttpResponseBadRequest("No existe la persona con esa cédula")
+            familiar = Familiar(
+                idFamiliar = persona,
+                pacienteAsig = paciente,
+                parentesco = data["parentesco"],
+                correo = ["correo"],
+                )
+            familiar.save()
+            return HttpResponse("Nuevo familiar agregadoo")
+        except:
+            return HttpResponseBadRequest("Error en los datos enviados de familiar")
+    else:
+        return HttpResponseNotAllowed(['POST'], "Método inválido")
+
+def nuevoDoctor(request):
+    if request.method == 'POST':
+        try:
+            data = json.loads(request.body)
+            persona = Persona(
+                id = data ["id"],
+                nombres = data["nombres"],
+                apellidos = data["apellidos"],
+                celular = data["celular"],
+                )
+            persona.save()
+
+            persona = Persona.objects.filter(id= data["id"]).first()
+            if (not persona):
+                return HttpResponseBadRequest("No existe la persona con esa cédula")
+            doctor = Doctor(
+                registro = data["registro"],
+                especialidad = data["especialidad"],
+                idDoctor = persona
+                )
+            
+            doctor.save()
+            return HttpResponse("Nuevo doctor agregadoo")
+        except:
+            return HttpResponseBadRequest("Error en los datos enviados de doctor")
+    else:
+        return HttpResponseNotAllowed(['POST'], "Método inválido")
+
 #----------------------
 #Persona
 #----------------------
@@ -205,10 +263,31 @@ def borrarPersona(request, id):
     else:
         return HttpResponseNotAllowed(['DELETE'], "Método inválido")
 
-
 #----------------------
 #Paciente
 #----------------------
+def nuevoPaciente(request):
+    if request.method == 'POST':
+        try:
+            data = json.loads(request.body)
+            persona = Persona(
+                id = data ["id"],
+                nombres = data["nombres"],
+                apellidos = data["apellidos"],
+                celular = data["celular"]
+                )
+            paciente = Paciente(
+                direccion = data["direccion"],
+                ciudad = data["ciudad"],
+                fechaNacimiento = data["fechaNacimiento"]
+                )
+            persona.save()
+            paciente.save()
+            return HttpResponse("Nuevo paciente agregadoo")
+        except:
+            return HttpResponseBadRequest("Error en los datos enviados")
+    else:
+        return HttpResponseNotAllowed(['POST'], "Método inválido")
 
 def nuevoPaciente(request):
     if request.method == 'POST':
@@ -245,87 +324,6 @@ def actualizarPaciente(request, id):
             return HttpResponseBadRequest("Error en los datos enviados")
     else:
         return HttpResponseNotAllowed(['PUT'], "Método inválido") 
-
-
-
-
-
-
-
-
-
-# def nuevoPaciente(request):
-#     if request.method == 'POST':
-#         try:
-#             data = json.loads(request.body)
-#             persona = Persona(
-#                 id = data ["id"],
-#                 nombres = data["nombres"],
-#                 apellidos = data["apellidos"],
-#                 celular = data["celular"]
-#                 )
-#             paciente = Paciente(
-#                 direccion = data["direccion"],
-#                 ciudad = data["ciudad"],
-#                 fechaNacimiento = data["fechaNacimiento"]
-#                 )
-#             persona.save()
-#             paciente.save()
-#             return HttpResponse("Nuevo paciente agregadoo")
-#         except:
-#             return HttpResponseBadRequest("Error en los datos enviados")
-#     else:
-#         return HttpResponseNotAllowed(['POST'], "Método inválido")
-
-# def nuevoDoctor(request):
-#     if request.method == 'POST':
-#         try:
-#             data = json.loads(request.body)
-#             persona = Persona(
-#                 id = data ["id"],
-#                 nombres = data["nombres"],
-#                 apellidos = data["apellidos"],
-#                 celular = data["celular"],
-#                 )
-#             persona.save()
-
-#             doctor = Doctor(
-#                 registro = data["registro"],
-#                 especialidad = data["especialidad"],
-#                 idDoctor = data["id"]
-#                 )
-            
-#             doctor.save()
-#             return HttpResponse("Nuevo doctor agregadoo")
-#         except:
-#             return HttpResponseBadRequest("Error en los datos enviados de doctor")
-#     else:
-#         return HttpResponseNotAllowed(['POST'], "Método inválido")
-
-
-# def nuevoFamiliar(request):
-    if request.method == 'POST':
-        try:
-            data = json.loads(request.body)
-            persona = Persona(
-                id = data ["id"],
-                nombres = data["nombres"],
-                apellidos = data["apellidos"],
-                celular = data["celular"],
-                )
-            familiar = Familiar(
-                idFamiliar = data["id"],
-                pacienteAsig = data["PacienteAsig"],
-                parentesco = data["parentesco"],
-                correo = ["correo"],
-                )
-            persona.save()
-            familiar.save()
-            return HttpResponse("Nuevo familiar agregadoo")
-        except:
-            return HttpResponseBadRequest("Error en los datos enviados de familiar")
-    else:
-        return HttpResponseNotAllowed(['POST'], "Método inválido")
 
 def borrarPaciente(request, id):
     if request.method == 'DELETE':

@@ -8,7 +8,8 @@ urlpatterns = [
     path('auxiliar/actualizarPaciente/<int:id>', views.actualizarPersonaPaciente, name = 'ActualizarPaciente'),
     path('auxiliar/borrarPaciente/<int:id>', views.borrarPersonaPaciente, name = 'EliminarPaciente'),
     path('auxiliar/buscarPaciente/<int:id>', views.buscarPersonaPaciente, name = 'BuscarPaciente'),
-
+    path('auxiliar/nuevoDoctor', views.nuevoDoctor, name = 'registroDoctor'),
+    path('auxiliar/nuevoFamiliar', views.nuevoFamiliar, name = 'registroFamiliar'),
 
     #urls Persona
     path('nuevaPersona', views.nuevaPersona, name = 'RegistroPersona'),
@@ -20,8 +21,5 @@ urlpatterns = [
     #urls paciente
     path('actualizarPaciente/<int:id>', views.actualizarPaciente, name = 'actualizarPaciente'),
     path('nuevoPaciente', views.nuevoPaciente, name = 'RegistroPaciente'),
-    path('borrarPaciente/<int:id>', views.borrarPaciente, name = 'EliminarPaciente'),
-    # path('nuevoPaciente', views.nuevoPaciente, name = 'registroPaciente'),
-    # path('nuevoDoctor', views.nuevoDoctor, name = 'registroDoctor'),
-    
+    path('borrarPaciente/<int:id>', views.borrarPaciente, name = 'EliminarPaciente'),  
 ]
