@@ -13,7 +13,7 @@ def nuevaPersonaPaciente(request):
         try:
             data = json.loads(request.body)
             persona = Persona(
-                id = data ["id"],
+                id = data["id"],
                 nombres = data["nombres"],
                 apellidos = data["apellidos"],
                 celular = data["celular"]

@@ -7,7 +7,7 @@ urlpatterns = [
     path('auxiliar/consultarPacientes', views.consultarPersonasPacientes, name = 'ConsultarPacientes'),
     path('auxiliar/actualizarPaciente/<int:id>', views.actualizarPersonaPaciente, name = 'ActualizarPaciente'),
     path('auxiliar/borrarPaciente/<int:id>', views.borrarPersonaPaciente, name = 'EliminarPaciente'),
-    path('auxiliar/buscarPersonaPaciente/<int:id>', views.buscarPersonaPaciente, name = 'BuscarPaciente'),
+    path('auxiliar/buscarPaciente/<int:id>', views.buscarPersonaPaciente, name = 'BuscarPaciente'),
 
 
     #urls Persona
