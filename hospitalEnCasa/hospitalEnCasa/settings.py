@@ -82,6 +82,7 @@ DATABASES = {
     }
 }
 """
+"""
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
@@ -90,6 +91,18 @@ DATABASES = {
         'PASSWORD':'Mysqlsantilp92*',
         'HOST':'127.0.0.1',
         'PORT':3306,
+        
+    }
+}
+"""
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'd429qfseti7r7',
+        'USER':'bcmbccacnkluhx',
+        'PASSWORD':'81e5bf89fe9be8055731ae6a185bf432de26b63a2c28d0c9e64ffd5a561a3183',
+        'HOST':'ec2-34-234-240-121.compute-1.amazonaws.com',
+        'PORT':5432,
         
     }
 }
