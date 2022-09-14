@@ -98,10 +98,10 @@ DATABASES = {
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'd429qfseti7r7',
-        'USER':'bcmbccacnkluhx',
-        'PASSWORD':'81e5bf89fe9be8055731ae6a185bf432de26b63a2c28d0c9e64ffd5a561a3183',
-        'HOST':'ec2-34-234-240-121.compute-1.amazonaws.com',
+        'NAME': 'd5leadgvnkl1ki',
+        'USER':'qfpjggekowqnli',
+        'PASSWORD':'8b0a3ca7dfd6b7b6e053528e7f96e9f0f9f788f74667110203f4601fe9fbc761',
+        'HOST':'ec2-52-207-90-231.compute-1.amazonaws.com',
         'PORT':5432,
         
     }
@@ -151,3 +151,4 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # Solo para heroku
 import django_heroku
 django_heroku.settings(locals())
+
